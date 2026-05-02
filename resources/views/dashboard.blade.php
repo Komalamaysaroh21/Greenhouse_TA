@@ -108,23 +108,38 @@
               </tr>
             </thead>
 
-              <tbody id="sensorTable" class="divide-y divide-gray-100">
-                  @foreach ($data as $item)
-                  <tr class="hover:bg-gray-50 transition-colors duration-200">
-                      <td class="px-6 py-4 text-sm text-gray-700 font-medium">Sensor {{ $item['sensor'] }}</td>
-                      <td class="px-6 py-4 text-sm text-gray-600">{{ \Carbon\Carbon::parse($item['waktu'])->format('Y-m-d H:i:s') }}</td>
-                      <td class="px-6 py-4">
-                      <span class="px-2.5 py-1 text-xs rounded-full bg-emerald-100 text-emerald-700 font-medium
-                          {{ $item['status'] == 'normal' ? 'bg-emerald-100 text-emerald-700' : '' }}
-                          {{ in_array($item['status'], ['gelap','kering','asam']) ? 'bg-red-100 text-red-700' : '' }}
-                      {{ in_array($item['status'], ['terang','basah','basa']) ? 'bg-yellow-100 text-yellow-700' : '' }}">
-                          {{ ucfirst($item['status']) }}
-                      </span>
-                      </td>
-                      <td class="px-6 py-4 text-sm font-semibold text-gray-900">{{ $item['nilai'] }} {{ $item['satuan'] }}</td>
-                  </tr>
-                  @endforeach
-              </tbody>
+              <tbody class="divide-y divide-gray-100">
+    @forelse ($data as $item)
+        <tr class="hover:bg-gray-50 transition-colors duration-200">
+            <td class="px-6 py-4 text-sm text-gray-700 font-medium">
+                Sensor {{ $item['sensor'] }}
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-600">
+                {{ \Carbon\Carbon::parse($item['waktu'])->format('Y-m-d H:i:s') }}
+            </td>
+            <td class="px-6 py-4">
+                <span class="px-2.5 py-1 text-xs rounded-full font-medium
+                    {{ $item['status'] == 'normal' ? 'bg-emerald-100 text-emerald-700' : '' }}
+                    {{ in_array($item['status'], ['gelap','kering','asam']) ? 'bg-red-100 text-red-700' : '' }}
+                    {{ in_array($item['status'], ['terang','basah','basa']) ? 'bg-yellow-100 text-yellow-700' : '' }}">
+                    {{ ucfirst($item['status']) }}
+                </span>
+            </td>
+            <td class="px-6 py-4 text-sm font-semibold text-gray-900">
+                {{ $item['nilai'] }} {{ $item['satuan'] }}
+            </td>
+        </tr>
+    @empty
+        <tr>
+            <td colspan="4">
+                <x-empty-state 
+                    title="Belum ada data sensor"
+                    subtitle="Data akan muncul setelah sensor mengirimkan informasi"
+                />
+            </td>
+        </tr>
+    @endforelse
+</tbody>
           </table>
         </div>
       </div>

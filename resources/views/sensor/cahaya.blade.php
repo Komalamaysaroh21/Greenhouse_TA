@@ -33,33 +33,50 @@
       </thead>
 
       <tbody class="divide-y divide-gray-100">
-        @foreach ($data as $item)
-        <tr class="hover:bg-gray-50 transition opacity-0 -translate-y-4"
-            style="transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1); transition-delay: {{ $loop->index * 70 }}ms;">
-          
-          <td class="px-6 py-4 text-sm font-medium text-gray-900">
-            #{{ str_pad($item->id, 3, '0', STR_PAD_LEFT) }}
-          </td>
+          @forelse ($data as $item)
+              <tr class="hover:bg-gray-50 transition opacity-0 -translate-y-4"
+                  style="transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1); transition-delay: {{ $loop->index * 70 }}ms;">
+                
+                <td class="px-6 py-4 text-sm font-medium text-gray-900">
+                  #{{ str_pad($item->id, 3, '0', STR_PAD_LEFT) }}
+                </td>
 
-          <td class="px-6 py-4 text-sm text-gray-600">
-            {{ \Carbon\Carbon::parse($item->created_at)->format('Y-m-d H:i:s') }}
-          </td>
+                <td class="px-6 py-4 text-sm text-gray-600">
+                  {{ \Carbon\Carbon::parse($item->created_at)->format('Y-m-d H:i:s') }}
+                </td>
 
-          <td class="px-6 py-4">
-            <span class="px-2.5 py-1 text-xs rounded-full font-medium
-              {{ $item->status == 'gelap' ? 'bg-gray-100 text-gray-700' : '' }}
-              {{ $item->status == 'normal' ? 'bg-emerald-100 text-emerald-700' : '' }}
-              {{ $item->status == 'terang' ? 'bg-yellow-100 text-yellow-700' : '' }}">
-              {{ ucfirst($item->status) }}
-            </span>
-          </td>
+                <td class="px-6 py-4">
+                  <span class="px-2.5 py-1 text-xs rounded-full font-medium
+                    {{ $item->status == 'gelap' ? 'bg-gray-100 text-gray-700' : '' }}
+                    {{ $item->status == 'normal' ? 'bg-emerald-100 text-emerald-700' : '' }}
+                    {{ $item->status == 'terang' ? 'bg-yellow-100 text-yellow-700' : '' }}">
+                    {{ ucfirst($item->status) }}
+                  </span>
+                </td>
 
-          <td class="px-6 py-4 text-sm font-semibold text-gray-900">
-            {{ $item->cahaya }} lux
-          </td>
+                <td class="px-6 py-4 text-sm font-semibold text-gray-900">
+                  {{ $item->cahaya }} lux
+                </td>
 
-        </tr>
-        @endforeach
+              </tr>
+          @empty
+              <tr>
+                  <td colspan="4" class="py-10">
+                      <x-empty-state 
+                          title="Belum ada data cahaya"
+                          subtitle="Sensor belum mengirim data"
+                      >
+                          <x-slot name="icon">
+                              <svg class="w-12 h-12 text-yellow-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <circle cx="12" cy="12" r="4"/>
+                              </svg>
+                          </x-slot>
+
+                          <!-- <a href="#" class="text-blue-500 text-sm mt-2">Refresh</a> -->
+                      </x-empty>
+                  </td>
+              </tr>
+          @endforelse
       </tbody>
 
     </table>
