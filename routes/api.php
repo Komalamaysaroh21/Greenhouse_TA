@@ -11,3 +11,6 @@ Route::delete('/users/{id}', [UserController::class, 'destroy']);
 
 Route::post('/sensor', [SensorController::class, 'store']);
 Route::get('/sensor', [SensorController::class, 'index']);
+
+
+

@@ -19,10 +19,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/cahaya', [DashboardController::class, 'cahaya'])->name('cahaya');
     Route::get('/tanah', [DashboardController::class, 'tanah'])->name('tanah');
     Route::get('/air', [DashboardController::class, 'air'])->name('air');
-    Route::get('/api/sensor', [DashboardController::class, 'apiSensor']);
+    
     Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
     Route::post('/profile', [AuthController::class, 'updateProfile'])->name('profile.update');
 });
 
 
-
+// Route::get('/api/sensor', [DashboardController::class, 'apiSensor']);

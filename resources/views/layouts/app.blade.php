@@ -71,5 +71,6 @@
 
 <script src="{{ asset('js/app.js') }}"></script>
 @yield('scripts')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 </html>

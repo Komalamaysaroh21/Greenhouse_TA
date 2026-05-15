@@ -7,7 +7,7 @@
         </div>
 
         <span class="text-xl font-bold tracking-tight text-white">
-            Smart Greenhouse
+            𝐒𝐦𝐚𝐫𝐭 𝐆𝐫𝐞𝐞𝐧𝐡𝐨𝐮𝐬𝐞
         </span>
 
     </div>
@@ -37,7 +37,7 @@
                     {{ request()->is('cahaya') ? '' : 'hidden' }}"></span>
 
                     <i class="fas fa-sun w-5"></i>
-                    <span>Cahaya</span>
+                    <span>Intensitas Cahaya</span>
                 </a>
 
                 <a href="{{ route('tanah') }}"
@@ -48,7 +48,7 @@
                     {{ request()->is('tanah') ? '' : 'hidden' }}"></span>
 
                     <i class="fas fa-seedling w-5"></i>
-                    <span>Tanah</span>
+                    <span>Kelembaban Tanah</span>
                 </a>
 
                 <a href="{{ route('air') }}"
@@ -59,7 +59,7 @@
                     {{ request()->is('air') ? '' : 'hidden' }}"></span>
 
                     <i class="fas fa-tint w-5"></i>
-                    <span>Air</span>
+                    <span>pH Air</span>
                 </a>
 
                 <div>
