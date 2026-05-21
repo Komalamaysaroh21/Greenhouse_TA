@@ -25,4 +25,4 @@ Route::middleware('auth')->group(function () {
 });
 
 
-// Route::get('/api/sensor', [DashboardController::class, 'apiSensor']);
+Route::get('/api/sensor', [DashboardController::class, 'apiSensor']);

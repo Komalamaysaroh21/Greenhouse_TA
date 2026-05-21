@@ -11,36 +11,78 @@ class DashboardController extends Controller
 
     public function index()
 {
+    $filter = request('filter', 'today');
+
+    $query = SensorData::query();
+
+    if ($filter == 'today') {
+        $query->whereDate('created_at', today());
+    }
+
+    elseif ($filter == 'week') {
+        $query->whereBetween('created_at', [
+            now()->startOfWeek(),
+            now()->endOfWeek()
+        ]);
+    }
+
+    elseif ($filter == 'month') {
+        $query->whereMonth('created_at', now()->month);
+    }
+
     $latest = SensorData::latest()->first();
 
-    $data = $this->formatData(
-        SensorData::latest()->take(10)->get()
-    );
+    $sensorData = $query->latest()->take(20)->get();
 
-    // DATA UNTUK CHART
-    $chartData = SensorData::latest()
-        ->take(10)
-        ->get()
-        ->reverse();
+    $data = $this->formatData($sensorData);
+
+    // chart
+    $chartLabels = $sensorData->pluck('created_at')
+        ->map(fn($d) => $d->format('H:i'))
+        ->reverse()
+        ->values();
+
+    $tanahChart = $sensorData->pluck('kelembaban_tanah')
+        ->reverse()
+        ->values();
+
+    $cahayaChart = $sensorData->pluck('cahaya')
+        ->reverse()
+        ->values();
+
+    $phChart = $sensorData->pluck('ph_air')
+        ->reverse()
+        ->values();
 
     return view('dashboard', compact(
-        'latest',
-        'data',
-        'chartData'
-    ));
+    'latest',
+    'data',
+    'chartLabels',
+    'tanahChart',
+    'cahayaChart',
+    'phChart',
+    'filter'
+),
+[
+    'statusTanah' => $latest ? $this->statusKelembaban($latest->kelembaban_tanah) : '-',
+    'statusCahaya' => $latest ? $this->statusCahaya($latest->cahaya) : '-',
+    'statusPh' => $latest ? $this->statusPh($latest->ph_air) : '-',
+]);
 }
 
     // =========================
     // API SENSOR
 
     public function apiSensor()
-    {
-        $data = $this->formatData(
-            SensorData::latest()->take(10)->get()
-        );
+{
+    $sensorData = SensorData::orderBy('id', 'desc')
+        ->limit(20)
+        ->get();
 
-        return response()->json($data);
-    }
+    $data = $this->formatData($sensorData);
+
+    return response()->json($data->values());
+}
 
     // =========================
     // FORMAT DATA
