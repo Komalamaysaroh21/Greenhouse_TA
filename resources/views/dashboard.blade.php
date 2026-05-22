@@ -141,59 +141,39 @@ elseif($ph > 7.5){
 
     </div>
 
-    <!-- CARD REFRESH -->
-    <div class="bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 text-white rounded-2xl p-5 shadow-lg">
+    <!-- UPDATE TERAKHIR -->
+    <div class="bg-gradient-to-r from-slate-700 to-black text-white rounded-xl px-4 py-3 shadow">
 
-        <div class="flex justify-between items-center">
+        <div class="flex items-center gap-3">
+
             <div>
-                <p class="text-sm text-white/80">
-                    Update Data
+                <p class="text-xs text-gray-300">
+                    Update
                 </p>
 
-                <h2 class="text-2xl font-bold mt-2">
-                    Refresh
+                <h2 class="text-sm font-bold">
+                    {{ optional($latest)->created_at?->format('H:i:s') ?? '--:--:--' }}
                 </h2>
             </div>
 
-            <div class="text-4xl opacity-80">
-                <i class="fas fa-rotate-right"></i>
+            <div class="text-lg text-gray-300">
+                <i class="fas fa-clock"></i>
             </div>
+
         </div>
-
-        <button onclick="location.reload()"
-            class="mt-4 px-4 py-2 bg-white text-indigo-600 rounded-xl text-sm font-semibold hover:bg-gray-100 transition">
-
-            Refresh Dashboard
-
-        </button>
 
     </div>
 
-</div>
-<!-- CARD UPDATE TERAKHIR -->
-<div class="bg-gradient-to-br from-gray-700 via-gray-800 to-black text-white rounded-2xl p-5 shadow-lg">
+    <!-- REFRESH DATA -->
+    <div class="bg-gradient-to-r from-indigo-500 to-pink-500 text-white rounded-xl px-4 py-3 shadow">
 
-    <div class="flex justify-between items-center">
-
-        <div>
-
-            <p class="text-sm text-white/70">
-                Update Terakhir
-            </p>
-
-            <h2 class="text-xl font-bold mt-2">
-                {{ optional($latest)->created_at ? optional($latest)->created_at->format('H:i:s') : '-' }}
-            </h2>
-
-            <p class="text-sm mt-2 text-white/80">
-                {{ optional($latest)->created_at ? optional($latest)->created_at->format('d M Y') : '-' }}
-            </p>
-
-        </div>
-
-        <div class="text-4xl opacity-70">
-            <i class="fas fa-clock"></i>
-        </div>
+        <button 
+            onclick="location.reload()"
+            class="flex items-center gap-2 text-sm font-semibold hover:scale-105 transition"
+        >
+            <i class="fas fa-rotate-right"></i>
+            Refresh
+        </button>
 
     </div>
 
