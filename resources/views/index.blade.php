@@ -37,13 +37,6 @@
     <img src="{{ asset('images/baner.png') }}" alt="Greenhouse">
   </div>
 </section>
-
-<section>
-  <h2>Panduan Pengguna</h2>
-  <img src="" alt="">
-  <p></p>
-</section>
-
     <script src="{{ asset('js/app.js') }}"></script>
 
 </body>

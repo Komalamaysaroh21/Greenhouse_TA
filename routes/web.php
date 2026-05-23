@@ -22,6 +22,8 @@ Route::middleware('auth')->group(function () {
     
     Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
     Route::post('/profile', [AuthController::class, 'updateProfile'])->name('profile.update');
+
+    Route::get('/export/csv', [DashboardController::class, 'exportCsv']);
 });
 
 

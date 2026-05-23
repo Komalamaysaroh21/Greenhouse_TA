@@ -36,41 +36,38 @@
 
 <body class="bg-gray-100 font-sans overflow-x-hidden">
   @if(session('success'))
-<div id="toast"
-     class="fixed top-5 right-5 bg-emerald-500 text-white px-5 py-3 rounded-xl shadow-lg flex items-center gap-2
-            transform translate-x-full opacity-0 transition-all duration-500 z-50">
-    {{ session('success') }}
-</div>
-@endif
-
-
-<div class="flex h-screen overflow-hidden">
-  
-  @include('partials.sidebar')
-
-  <main id="mainContent" class="flex-1 overflow-y-auto relative">
-
-    <div class="fixed top-0 left-64 right-0 h-[35vh] min-h-[280px]">
-      <div class="absolute inset-0 bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-500"></div>
-
-      <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-gray-100 via-gray-100/80 to-transparent"></div>
+    <div id="toast" class="fixed top-5 right-5 bg-emerald-500 text-white px-5 py-3 rounded-xl shadow-lg flex items-center gap-2 transform translate-x-full opacity-0 transition-all duration-500 z-50">
+      {{ session('success') }}
     </div>
+  @endif
 
-    <div class="relative z-10 p-6">
+  <div class="flex h-screen overflow-hidden">
+    
+    @include('partials.sidebar')
 
-      
-      
-      @yield('content')
+    <main id="mainContent" class="flex-1 overflow-y-auto relative">
 
-    </div>
+      <div class="fixed top-0 left-64 right-0 h-[35vh] min-h-[280px]">
+        <div class="absolute inset-0 bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-500"></div>
 
-    @include('partials.footer')
+        <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-gray-100 via-gray-100/80 to-transparent"></div>
+      </div>
 
-  </main>
-</div>
+      <div class="relative z-10 p-6">
 
-<script src="{{ asset('js/app.js') }}"></script>
-@yield('scripts')
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        
+        
+        @yield('content')
+
+      </div>
+
+      @include('partials.footer')
+
+    </main>
+  </div>
+
+  <script src="{{ asset('js/app.js') }}"></script>
+  @yield('scripts')
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 </html>

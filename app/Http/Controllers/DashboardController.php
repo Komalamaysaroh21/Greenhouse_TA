@@ -220,4 +220,101 @@ class DashboardController extends Controller
 
         return view('sensor.air', compact('data'));
     }
+
+   public function exportCsv()
+{
+    $limit = request('limit', 10);
+
+    // TOTAL DATA DI DATABASE
+    $totalData = SensorData::count();
+
+    // VALIDASI LIMIT
+    if($limit > $totalData){
+
+        $limit = $totalData;
+    }
+
+    // MINIMAL 1
+    if($limit <= 0){
+
+        $limit = 1;
+    }
+
+    $fileName = 'greenhouse-monitoring-' . now()->format('Y-m-d_H-i-s') . '.csv';
+
+    $headers = [
+        "Content-Type" => "text/csv; charset=UTF-8",
+        "Content-Disposition" => "attachment; filename={$fileName}",
+    ];
+
+    $callback = function () use ($limit) {
+
+    $file = fopen('php://output', 'w');
+
+    // UTF-8 BOM
+    fprintf($file, chr(0xEF).chr(0xBB).chr(0xBF));
+
+    // =========================
+    // HEADER TEMPLATE
+
+    fputcsv($file, [
+        'SMART GREENHOUSE MONITORING SYSTEM'
+    ], ';');
+
+    fputcsv($file, [], ';');
+
+    fputcsv($file, [
+        'Tanggal Export',
+        now()->format('d-m-Y H:i:s')
+    ], ';');
+
+    fputcsv($file, [
+        'Jumlah Data',
+        $limit
+    ], ';');
+
+    fputcsv($file, [], ';');
+
+    // =========================
+    // HEADER TABLE
+
+    fputcsv($file, [
+        'No',
+        'Tanggal',
+        'Cahaya',
+        'Kelembaban Tanah',
+        'pH Air'
+    ], ';');
+
+    // =========================
+    // DATA
+
+    $data = SensorData::latest()
+        ->take($limit)
+        ->get();
+
+    $no = 1;
+
+    foreach ($data as $row) {
+
+        fputcsv($file, [
+
+            $no++,
+
+            $row->created_at->format('d-m-Y H:i:s'),
+
+            $row->cahaya . ' Lux',
+
+            $row->kelembaban_tanah . ' %',
+
+            $row->ph_air
+
+        ], ';');
+    }
+
+    fclose($file);
+};
+
+    return response()->stream($callback, 200, $headers);
+}
 }

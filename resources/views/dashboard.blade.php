@@ -4,10 +4,31 @@
 
 @section('content')
 
-<x-header 
-    title="🌿🌺🌿 𝑰𝒐𝑻-𝑩𝒂𝒔𝒆𝒅 𝑺𝒎𝒂𝒓𝒕 𝑮𝒓𝒆𝒆𝒏𝒉𝒐𝒖𝒔𝒆 𝑴𝒐𝒏𝒊𝒕𝒐𝒓𝒊𝒏𝒈 𝑺𝒚𝒔𝒕𝒆𝒎 🌿🌺🌿 📊"
-    desc="𝑅𝑒𝑎𝑙-𝑡𝑖𝑚𝑒 𝑚𝑜𝑛𝑖𝑡𝑜𝑟𝑖𝑛𝑔 𝑠𝑦𝑠𝑡𝑒𝑚 𝑓𝑜𝑟 𝑠𝑜𝑖𝑙 𝑚𝑜𝑖𝑠𝑡𝑢𝑟𝑒, 𝑙𝑖𝑔ℎ𝑡 𝑖𝑛𝑡𝑒𝑛𝑠𝑖𝑡𝑦, 𝑎𝑛𝑑 𝑤𝑎𝑡𝑒𝑟 𝑝𝐻."
-/>
+    <div id="refreshBtn"
+        class="fixed bottom-6 right-6 z-50
+                transform
+                transition-all duration-500 ease-in-out
+                translate-y-0 opacity-100">
+
+        <button
+            onclick="location.reload()"
+            class="w-14 h-14 rounded-full
+                bg-gradient-to-r from-emerald-500 to-cyan-500
+                text-white shadow-xl
+                flex items-center justify-center
+                hover:scale-110 active:scale-95
+                transition">
+
+            <i class="fas fa-rotate-right text-lg"></i>
+
+        </button>
+
+    </div>
+
+    <x-header 
+        title="🌿🌺🌿 𝑰𝒐𝑻-𝑩𝒂𝒔𝒆𝒅 𝑺𝒎𝒂𝒓𝒕 𝑮𝒓𝒆𝒆𝒏𝒉𝒐𝒖𝒔𝒆 𝑴𝒐𝒏𝒊𝒕𝒐𝒓𝒊𝒏𝒈 𝑺𝒚𝒔𝒕𝒆𝒎 🌿🌺🌿 📊"
+        desc="𝑅𝑒𝑎𝑙-𝑡𝑖𝑚𝑒 𝑚𝑜𝑛𝑖𝑡𝑜𝑟𝑖𝑛𝑔 𝑠𝑦𝑠𝑡𝑒𝑚 𝑓𝑜𝑟 𝑠𝑜𝑖𝑙 𝑚𝑜𝑖𝑠𝑡𝑢𝑟𝑒, 𝑙𝑖𝑔ℎ𝑡 𝑖𝑛𝑡𝑒𝑛𝑠𝑖𝑡𝑦, 𝑎𝑛𝑑 𝑤𝑎𝑡𝑒𝑟 𝑝𝐻."
+    />
 
 @php
 
@@ -55,10 +76,10 @@ elseif($ph > 7.5){
 @endphp
 
 <!-- CARDS -->
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
+<div class="flex flex-wrap justify-center gap-6 mb-8">
 
     <!-- CARD TANAH -->
-    <div class="bg-gradient-to-br {{ $tanahColor }} text-white rounded-2xl p-5 shadow-lg">
+    <div class="w-full sm:w-[320px] bg-gradient-to-br {{ $tanahColor }} text-white rounded-2xl p-5 shadow-lg">
 
         <div class="flex justify-between items-center">
             <div>
@@ -86,7 +107,7 @@ elseif($ph > 7.5){
     </div>
 
     <!-- CARD CAHAYA -->
-    <div class="bg-gradient-to-br {{ $cahayaColor }} text-white rounded-2xl p-5 shadow-lg">
+    <div class="w-full sm:w-[320px] bg-gradient-to-br {{ $cahayaColor }} text-white rounded-2xl p-5 shadow-lg">
 
         <div class="flex justify-between items-center">
             <div>
@@ -114,7 +135,7 @@ elseif($ph > 7.5){
     </div>
 
     <!-- CARD PH -->
-    <div class="bg-gradient-to-br {{ $phColor }} text-white rounded-2xl p-5 shadow-lg">
+    <div class="w-full sm:w-[320px] bg-gradient-to-br {{ $phColor }} text-white rounded-2xl p-5 shadow-lg">
 
         <div class="flex justify-between items-center">
             <div>
@@ -141,64 +162,107 @@ elseif($ph > 7.5){
 
     </div>
 
-    <!-- UPDATE TERAKHIR -->
-    <div class="bg-gradient-to-r from-slate-700 to-black text-white rounded-xl px-4 py-3 shadow">
+    
 
-        <div class="flex items-center gap-3">
+    
 
-            <div>
-                <p class="text-xs text-gray-300">
-                    Update
-                </p>
+</div>
 
-                <h2 class="text-sm font-bold">
-                    {{ optional($latest)->created_at?->format('H:i:s') ?? '--:--:--' }}
-                </h2>
-            </div>
 
-            <div class="text-lg text-gray-300">
-                <i class="fas fa-clock"></i>
-            </div>
+
+<div class="flex items-center justify-between mb-6">
+
+    <!-- FILTER BOX -->
+    <div
+        class="flex items-center gap-3
+               bg-white border border-gray-200
+               px-4 py-3 rounded-2xl
+               shadow-sm">
+
+        <!-- ICON -->
+        <div
+            class="w-10 h-10 rounded-full
+                   bg-gradient-to-r from-indigo-500 to-purple-500
+                   flex items-center justify-center
+                   text-white shadow">
+
+            <i class="fas fa-filter text-sm"></i>
+
+        </div>
+
+        <!-- TEXT + SELECT -->
+        <div>
+
+            <p class="text-xs text-gray-500 mb-1">
+                Filter Data Monitoring
+            </p>
+
+            <form method="GET">
+
+                <select
+                    name="filter"
+                    onchange="this.form.submit()"
+                    class="text-sm font-semibold
+                           bg-transparent
+                           border-none
+                           focus:outline-none
+                           text-gray-800 cursor-pointer"
+                >
+                    <option value="today" {{ request('filter') == 'today' ? 'selected' : '' }}>
+                        Hari Ini
+                    </option>
+
+                    <option value="week" {{ request('filter') == 'week' ? 'selected' : '' }}>
+                        Minggu Ini
+                    </option>
+
+                    <option value="month" {{ request('filter') == 'month' ? 'selected' : '' }}>
+                        Bulan Ini
+                    </option>
+
+                </select>
+
+            </form>
 
         </div>
 
     </div>
 
-    <!-- REFRESH DATA -->
-    <div class="bg-gradient-to-r from-indigo-500 to-pink-500 text-white rounded-xl px-4 py-3 shadow">
+    <!-- UPDATE INFO -->
+    <div
+        class="flex items-center gap-3
+               bg-white border border-emerald-100
+               px-4 py-3 rounded-2xl
+               shadow-sm">
 
-        <button 
-            onclick="location.reload()"
-            class="flex items-center gap-2 text-sm font-semibold hover:scale-105 transition"
-        >
-            <i class="fas fa-rotate-right"></i>
-            Refresh
-        </button>
+        <!-- ICON -->
+        <div
+            class="w-10 h-10 rounded-full
+                   bg-gradient-to-r from-emerald-500 to-cyan-500
+                   flex items-center justify-center
+                   text-white shadow">
+
+            <i class="fas fa-clock text-sm"></i>
+
+        </div>
+
+        <!-- TEXT -->
+        <div>
+
+            <p class="text-xs text-gray-500">
+                Data Terakhir Diupdate
+            </p>
+
+            <h3 class="text-sm font-bold text-gray-800">
+                {{ optional($latest)->created_at?->format('H:i:s') ?? '--:--:--' }}
+            </h3>
+
+        </div>
 
     </div>
 
 </div>
 
-<!-- FILTER -->
-<form method="GET" class="mb-6">
-    <select
-        name="filter"
-        onchange="this.form.submit()"
-        class="px-4 py-2 rounded-xl border border-gray-300 shadow-sm"
-    >
-        <option value="today" {{ request('filter') == 'today' ? 'selected' : '' }}>
-            Hari Ini
-        </option>
-
-        <option value="week" {{ request('filter') == 'week' ? 'selected' : '' }}>
-            Minggu Ini
-        </option>
-
-        <option value="month" {{ request('filter') == 'month' ? 'selected' : '' }}>
-            Bulan Ini
-        </option>
-    </select>
-</form>
 
 <!-- GRAFIK -->
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -223,11 +287,44 @@ elseif($ph > 7.5){
 <!-- TABLE -->
 <div class="bg-white rounded-2xl shadow-md overflow-hidden mt-8">
 
-    <div class="px-6 py-5 border-b border-gray-100">
+    <div class="px-6 py-5 border-b border-gray-100
+            flex flex-col sm:flex-row
+            sm:items-center sm:justify-between
+            gap-4">
+
+    <!-- TITLE -->
+    <div>
+
         <h3 class="text-lg font-semibold text-gray-800">
             Sensor Data
         </h3>
+
+        <p class="text-sm text-gray-500 mt-1">
+            Monitoring data sensor greenhouse terbaru
+        </p>
+
     </div>
+
+    <!-- ACTION BUTTON -->
+    <div class="flex gap-3">
+
+        <button
+    onclick="exportCsv()"
+    class="inline-flex items-center gap-2
+           bg-blue-500 hover:bg-blue-600
+           text-white text-sm font-medium
+           px-4 py-2 rounded-xl
+           shadow transition">
+
+    <i class="fas fa-file-csv"></i>
+
+    Export CSV
+
+</button>
+
+    </div>
+
+</div>
 
     <div class="overflow-x-auto max-h-[400px] overflow-y-auto">
 
@@ -405,6 +502,47 @@ fetchSensorData();
 
 // AUTO REFRESH
 setInterval(fetchSensorData, 5000);
+
+
+
+
+// 
+function exportCsv(){
+
+    let maxData = {{ \App\Models\SensorData::count() }};
+
+    let total = prompt(
+    "Masukkan jumlah data yang ingin diexport:",
+    10
+);
+
+    // BATAL
+    if(total == null || total == ""){
+
+        return;
+    }
+
+    total = parseInt(total);
+
+    // VALIDASI ANGKA
+    if(isNaN(total) || total <= 0){
+
+        alert("Jumlah data tidak valid!");
+
+        return;
+    }
+
+    // VALIDASI MAKSIMUM
+    if(total > maxData){
+
+        alert("Data hanya tersedia " + maxData);
+
+        return;
+    }
+
+    // EXPORT
+    window.location.href = "/export/csv?limit=" + total;
+}
 
 </script>
 
